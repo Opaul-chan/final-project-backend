@@ -17,18 +17,17 @@ export const createActivity = async (req, res) => {
     // failed validation
     return res.status(400).send("Invalid request");
   }
-  const newRecord = new RecordModel({ body });
+  const newRecord = new RecordModel(body);
   await newRecord.save();
 
   return res.status(201).send(newRecord);
-  //FINISH LINE
+};
+//FINISH LINE
 
-  // activities.push({ ...activity, id: uuidv4() });
-  // res
-  //   .status(201)
-  //   .send(`User with the name ${activity.activityName} added to the database.`);
-
-
+// activities.push({ ...activity, id: uuidv4() });
+// res
+//   .status(201)
+//   .send(`User with the name ${activity.activityName} added to the database.`);
 
 export const searchActivityById = (req, res) => {
   const { id } = req.params;
@@ -40,11 +39,14 @@ export const searchActivityById = (req, res) => {
   }
 };
 
-export const deleteActivityByID = (req, res) => {
-  const { id } = req.params;
+export const deleteActivityByID = async (req, res) => {
+  const activityType = req.params;
+  console.log(activityType);
   //true keep in array and if false remove from array
-  activities = activities.filter((activity) => activity.id !== id);
-  res.send(`User with the id ${id} deleted from the database.`);
+  // records.splice(req.recordIndex, 1);
+  await RecordModel.deleteOne({ activityType: activityType });
+  // `1` if MongoDB deleted a doc, `0` if no docs matched the filter `{ name: ... }`
+  res.status(204).send(`User with the id ${id} deleted from the database.`);
 };
 
 export const updateActivity = (req, res) => {
@@ -70,5 +72,5 @@ export const updateActivity = (req, res) => {
   if (activityType) activity.activityType = activityType;
   if (activityDescription) activity.activityDescription = activityDescription;
 
-  res.send(`Activity with the id: ${id} has been updated `);
+  res.status(201).send(`Activity with the id: ${id} has been updated `);
 };
