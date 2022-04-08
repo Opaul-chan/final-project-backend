@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/3eda758e-d626-4c39-b5d8-4b5a3382aa32/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/Exernotion",
+  "appService.deploySubpath": "."
+}
