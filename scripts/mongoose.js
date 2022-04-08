@@ -2,11 +2,18 @@ import mongoose from "mongoose";
 import config from "../src/config";
 
 const run = async () => {
-  await mongoose.connect(config.mongoUri, config.mongoOption);
+  console.log(config.mongoUri);
+
+  // await mongoose.connect(url);
+
+  await mongoose.connect(config.mongoUri, config.mongoOptions);
+
+  //await mongoose.connect(config.mongoUri, config.mongoOption);
   //   const zips = await mongoose.connection.db
   //     .collection("zips")
   //     .find({})
   //     .toArray();
+
   const schema = new mongoose.Schema({
     city: String,
     zip: String,

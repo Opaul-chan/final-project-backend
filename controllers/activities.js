@@ -5,7 +5,7 @@ let activities = [];
 
 export const searchAllActivities = async (req, res) => {
   const activities = await RecordModel.find({});
-  res.send(activities);
+  res.status(200).send(activities);
 };
 
 export const createActivity = async (req, res) => {
@@ -15,7 +15,7 @@ export const createActivity = async (req, res) => {
   const validateResult = createRequestSchema.validate(body);
   if (validateResult.error) {
     // failed validation
-    return res.status(400).send("Invalid request");
+    return res.status(400).send(validateResult.error);
   }
   const newRecord = new RecordModel(body);
   await newRecord.save();
@@ -40,11 +40,11 @@ export const searchActivityById = (req, res) => {
 };
 
 export const deleteActivityByID = async (req, res) => {
-  const activityType = req.params;
+  const _id = req.params;
   console.log(activityType);
   //true keep in array and if false remove from array
   // records.splice(req.recordIndex, 1);
-  await RecordModel.deleteOne({ activityType: activityType });
+  await RecordModel.deleteOne({ _id: id });
   // `1` if MongoDB deleted a doc, `0` if no docs matched the filter `{ name: ... }`
   res.status(204).send(`User with the id ${id} deleted from the database.`);
 };

@@ -24,6 +24,9 @@ app.get("/", (req, res) => {
 
 const boot = async () => {
   //Connect to mongoDB
+  // const url =
+  //   "mongodb+srv://sandbox:sandbox@cluster0.hs0f1.mongodb.net/sample_training?retryWrites=true&w=majority";
+  // await mongoose.connect(url);
 
   await mongoose.connect(config.mongoUri, config.mongoOptions);
   //Start express sever

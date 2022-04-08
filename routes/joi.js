@@ -2,7 +2,7 @@ import express from "express";
 import Joi from "joi";
 
 export const createRequestSchema = Joi.object({
-  activityDate: Joi.string().required(),
+  activityDate: Joi.date().required(),
   activityName: Joi.string().required(),
   activityDuration: Joi.number().min(0).required(),
   activityType: Joi.string().required(),
