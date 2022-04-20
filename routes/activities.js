@@ -13,7 +13,6 @@ const router = express.Router();
 router.get("/", searchAllActivities);
 
 //Create activity
-
 router.post("/", createActivity);
 
 //Search a activity

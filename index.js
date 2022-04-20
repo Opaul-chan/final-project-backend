@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-// add "type" : "module" can delete const express
 import bodyParser from "body-parser";
 import activitiesRoutes from "./routes/activities";
 import config from "./src/config";
@@ -17,12 +16,7 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
-//if visit slash users will run usersRoutes
 app.use("/activities", activitiesRoutes);
-
-app.get("/", (req, res) => {
-  res.send("Hello from Homepage");
-});
 
 const boot = async () => {
   //Connect to mongoDB
