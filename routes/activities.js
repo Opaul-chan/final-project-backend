@@ -23,6 +23,6 @@ router.get("/:id", searchActivityById);
 router.delete("/:id", deleteActivityByID);
 
 //Updates a activity
-router.patch("/:id", updateActivity);
+router.put("/:id", updateActivity);
 
 export default router;

@@ -29,11 +29,12 @@ export const createActivity = async (req, res) => {
 //   .status(201)
 //   .send(`User with the name ${activity.activityName} added to the database.`);
 
-export const searchActivityById = (req, res) => {
-  const { id } = req.params;
-  const foundActivity = activities.find((activity) => activity.id === id);
-  if (foundActivity) {
-    return res.send(foundActivity);
+export const searchActivityById = async (req, res) => {
+  const _id = req.params;
+  const activity = await RecordModel.findById(_id.id);
+  // const foundActivity = activities.find((activity) => activity.id === id);
+  if (activity) {
+    return res.send(activity);
   } else {
     return res.status(404).send("Activity not found");
   }
@@ -41,12 +42,13 @@ export const searchActivityById = (req, res) => {
 
 export const deleteActivityByID = async (req, res) => {
   const _id = req.params;
-  console.log(activityType);
   //true keep in array and if false remove from array
   // records.splice(req.recordIndex, 1);
-  await RecordModel.deleteOne({ _id: id });
+  // await RecordModel.deleteOne({ _id: _id.id });
+  await RecordModel.findByIdAndDelete(_id.id);
+
   // `1` if MongoDB deleted a doc, `0` if no docs matched the filter `{ name: ... }`
-  res.status(204).send(`User with the id ${id} deleted from the database.`);
+  res.status(204).send(`User with the id ${_id} deleted from the database.`);
 };
 
 export const updateActivity = (req, res) => {
