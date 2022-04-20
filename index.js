@@ -3,11 +3,14 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 import activitiesRoutes from "./routes/activities";
-import config from "./src/config";
 import chalk from "chalk";
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
+
+import dotenv from "dotenv";
+
+dotenv.config();
 
 app.use(bodyParser.json());
 app.use(
@@ -16,16 +19,17 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+
+app.use(async (req, res, next) => {
+  await mongoose.connect(process.env.MONGO_URI);
+  next();
+});
+
 app.use("/activities", activitiesRoutes);
 
-const boot = async () => {
-  //Connect to mongoDB
-  await mongoose.connect(config.mongoUri, config.mongoOptions);
-  //Start express sever
-  app.listen(PORT, () =>
-    console.log(
-      "Server running on port:" + " " + "http://localhost:" + chalk.green(PORT)
-    )
-  );
-};
-boot();
+//Start express sever
+app.listen(PORT, () =>
+  console.log(
+    "Server running on port:" + " " + "http://localhost:" + chalk.green(PORT)
+  )
+);
